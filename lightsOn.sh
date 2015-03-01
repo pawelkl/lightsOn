@@ -36,6 +36,7 @@ vlc_detection=1
 firefox_flash_detection=1
 chromium_flash_detection=1
 minitube_detection=1
+popcorntime_detection=1
 
 # Names of programs which, when running, you wish to delay the screensaver.
 delay_progs=() # For example ('ardour2' 'gmpc')
@@ -179,6 +180,18 @@ isAppRunning()
             #minitube_process=`pgrep -l minitube | grep -wc minitube`
             minitube_process=`pgrep -lc minitube`
             if [ $minitube_process -ge 1 ]; then
+                return 1
+            fi
+        fi
+    fi
+    
+    # Check if user want to detect popcorntime fullscreen, modify variable minitube_detection
+    if [ $popcorntime_detection == 1 ];then
+        if [[ "$activ_win_title" = *Popcorn Time* ]];then
+            #check if minitube is running.
+            #popcorntime_process=`pgrep -l Popcorn-Time | grep -wc Popcorn-Time`
+            popcorntime_process=`pgrep -lc Popcorn-Time`
+            if [ $popcorntime_process -ge 1 ]; then
                 return 1
             fi
         fi
